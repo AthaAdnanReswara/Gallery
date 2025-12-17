@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\album;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class AlbumController extends Controller
 {
@@ -37,13 +38,25 @@ class AlbumController extends Controller
             'cover' => 'nullable|image|max:2048'
         ]);
 
+        // buat slug dasar
+        $slug = Str::slug($request->name);
+
+        // cek slug unik
+        $originalSlug = $slug;
+        $count = 1;
+
+        while (Album::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count++;
+        }
+
         $coverPath = null;
         if ($request->hasFile('cover')) {
             $coverPath = $request->file('cover')->store('album_covers', 'public');
         }
 
-        Album::create([
+        album::create([
             'name' => $request->name,
+            'slug' => $slug,
             'deskripsi' => $request->deskripsi,
             'cover' => $coverPath,
             'is_active' => true

@@ -69,7 +69,7 @@
                 <span class="text-primary">
                   <img style="width: 70px; padding-right: 10px;" src={{ asset('admin/assets/img/favicon/logo-woka.png') }} alt="">
                   </svg>
-                </span>
+                 </span>
               </span>
               <span class="app-brand-text demo text-heading fw-bold">WokaGallery</span>
 

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\album;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Share data album ke SEMUA view
+        view()->composer('*', function ($view) {
+            $albums = album::where('is_active', true)
+                ->orderBy('name', 'asc')
+                ->get();
+
+            $view->with('albums', $albums);
+        });
     }
 }

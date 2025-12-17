@@ -9,6 +9,7 @@ class album extends Model
     protected $fillable = [
         'name',
         'deskripsi',
+        'slug',
         'cover',
         'is_active'
     ];
