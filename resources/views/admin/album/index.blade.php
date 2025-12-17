@@ -9,6 +9,21 @@
             <i class="bx bx-plus me-1"></i> Tambah Album
         </a>
     </div>
+    <div class="m-3 mb-2">
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible text-dark">{{ session('success') }}
+            <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+        @if(session('error'))
+        <div class="alert alert-danger small mx-3">{{ session('error') }}</div>
+        @endif
+        @if($errors->any())
+        <div class="alert alert-danger small mx-3">{{ $errors->first() }}</div>
+        @endif
+    </div>
 
     <div class="table-responsive text-nowrap">
         <table class="table " id="album">
@@ -27,18 +42,13 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>
-                        <i class="icon-base bx bxl-angular icon-md text-danger me-4"></i> <span>{{ $album->name ?? '-' }}</span>
+                        <span>{{ $album->name ?? '-' }}</span>
                     </td>
                     <td>{{ $album->deskripsi ?? '-' }}</td>
                     <td>
                         <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
-                            <li
-                                data-bs-toggle="tooltip"
-                                data-popup="tooltip-custom"
-                                data-bs-placement="top"
-                                class="avatar avatar-xs pull-up"
-                                title="Christina Parker">
-                                <img src={{ asset('admin/assets/img/avatars/4.png') }} alt="Avatar" class="rounded-circle" />
+                            <li class="avatar avatar-xs pull-up">
+                                <img src="{{ asset('storage/' . $album->cover) }}" alt="Cover Album" class="rounded-circle" />
                             </li>
                         </ul>
                     </td>
@@ -49,9 +59,20 @@
                                 <i class="icon-base bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('admin.jurusan.edit', $album->id) }}"><i class="icon-base bx bx-edit-alt me-1"></i> Edit</a>
-                                <a class="dropdown-item" href="javascript:void(0);"><i class="icon-base bx bx-trash me-1"></i> Delete</a>
+                                <a class="dropdown-item" href="{{ route('admin.album.edit', $album->id) }}">
+                                    <i class="icon-base bx bx-edit-alt me-1"></i> Edit
+                                </a>
+                                <form action="{{ route('admin.album.destroy', $album->id) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Yakin ingin menghapus album ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="icon-base bx bx-trash me-1"></i> Delete
+                                    </button>
+                                </form>
                             </div>
+
                         </div>
                     </td>
                 </tr>

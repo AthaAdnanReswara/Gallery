@@ -11,7 +11,7 @@
   <title>WokaGallery - @yield('title')</title>
   <meta name="description" content="" />
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href={{ asset('admin/assets/img/favicon/logo-woka.png') }} />
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -135,13 +135,13 @@
           <li class="menu-item {{ request()->routeIs('admin.album.*') ? 'active' : '' }}">
             <a href="{{ route('admin.album.index') }}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-photo-album"></i>
-              <div class="text-truncate" data-i18n="Basic">Album</div>
+              <div class="text-truncate">Album</div>
             </a>
           </li>
-          <li class="menu-item">
-            <a href="icons-boxicons.html" class="menu-link">
-              <i class="menu-icon tf-icons bx bx-camera-alt"></i>
-              <div class="text-truncate" data-i18n="Boxicons">Photo</div>
+          <li class="menu-item {{ request()->routeIs('admin.photo.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.photo.index') }}" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-camera"></i>
+              <div class="text-truncate">Photo</div>
             </a>
           </li>
           @endif
@@ -192,7 +192,7 @@
                   href="javascript:void(0);"
                   data-bs-toggle="dropdown">
                   <div class="avatar avatar-online">
-                    <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                    <img src={{ asset('admin/assets/img/avatars/1.png') }} alt class="w-px-40 h-auto rounded-circle" />
                   </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -201,7 +201,7 @@
                       <div class="d-flex">
                         <div class="flex-shrink-0 me-3">
                           <div class="avatar avatar-online">
-                            <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                            <img src={{ asset('admin/assets/img/avatars/1.png') }} alt class="w-px-40 h-auto rounded-circle" />
                           </div>
                         </div>
                         <div class="flex-grow-1">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\album;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AlbumController extends Controller
 {
@@ -31,10 +32,25 @@ class AlbumController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'deskripsi' =>'nullable|string',
-            'cover' => ''
+            'name' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'cover' => 'nullable|image|max:2048'
         ]);
+
+        $coverPath = null;
+        if ($request->hasFile('cover')) {
+            $coverPath = $request->file('cover')->store('album_covers', 'public');
+        }
+
+        Album::create([
+            'name' => $request->name,
+            'deskripsi' => $request->deskripsi,
+            'cover' => $coverPath,
+            'is_active' => true
+        ]);
+
+        return redirect()->route('admin.album.index')
+            ->with('success', 'Album berhasil ditambahkan');
     }
 
     /**
@@ -48,24 +64,46 @@ class AlbumController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(album $album)
     {
-        //
+        return view('admin.album.edit', compact('album'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Album $album)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'cover' => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('cover')) {
+            if ($album->cover) {
+                Storage::disk('public')->delete($album->cover);
+            }
+            $album->cover = $request->file('cover')->store('album_covers', 'public');
+        }
+        $album->update([
+            'name' => $request->name,
+            'deskripsi' => $request->deskripsi,
+            'is_active' => true
+        ]);
+        return redirect()->route('admin.album.index')->with('success', 'Album berhasil diperbarui');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(album $album)
     {
-        //
+        if ($album->cover) {
+            Storage::disk('public')->delete($album->cover);
+        }
+        $album->delete();
+        return back()->with('success', 'Album berhasil dihapus');
     }
 }

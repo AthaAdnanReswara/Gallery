@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>WokaGallery - @yield('title')</title>
+    <title>WokaGallery - @yield('title','Home')</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
 
@@ -38,7 +38,7 @@
 
 <body class="index-page">
     <header id="header" class="header d-flex align-items-center sticky-top">
-        <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
+        <div class="container-fluid position-relative d-flex align-items-center justify-content-between" style="margin: 0px 70px;">
             <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
                 <!-- <img src="index/assets/img/logo.png" alt=""> -->
