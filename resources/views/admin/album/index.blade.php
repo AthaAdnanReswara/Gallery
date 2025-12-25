@@ -33,6 +33,7 @@
                     <th>Album</th>
                     <th>Deskripsi</th>
                     <th>Cover</th>
+                    <th>Title</th>
                     <th>Is_active</th>
                     <th>Actions</th>
                 </tr>
@@ -48,11 +49,23 @@
                     <td>
                         <ul class="list-unstyled m-0 avatar-group d-flex align-items-center">
                             <li class="avatar avatar-xs pull-up">
+                                @if($album->cover)
                                 <img src="{{ asset('storage/' . $album->cover) }}" alt="Cover Album" class="rounded-circle" />
+                                @else
+                                <span class="text-muted">Tidak ada</span>
+                                @endif
                             </li>
                         </ul>
                     </td>
-                    <td><span class="badge bg-label-primary me-1">{{ $album->is_active }}</span></td>
+                    <td>{{ $album->title }}</td>
+                    <td>
+                        @if($album->is_active)
+                        <span class="badge bg-success">Aktif</span>
+                        @else
+                        <span class="badge bg-danger">Non Aktif</span>
+                        @endif
+                    </td>
+
                     <td>
                         <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

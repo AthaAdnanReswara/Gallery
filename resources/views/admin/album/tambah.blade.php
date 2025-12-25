@@ -31,6 +31,14 @@
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+                    <!-- Title -->
+                    <div class="mb-4">
+                        <label for="defaultInput" class="form-label">Title</label>
+                        <textarea name="title" class="form-control" rows="3" placeholder="title album................"></textarea>
+                        @error('title')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                     <!-- Button -->
                     <div class="d-flex justify-content-end gap-2">
                         <a href="{{ route('admin.album.index') }}" class="btn btn-outline-secondary">

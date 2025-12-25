@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('deskripsi')->nullable();
             $table->string('slug')->unique();
             $table->string('cover')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->string('is_active')->nullable();
             $table->string('title')->nullable();
             $table->timestamps();
         });

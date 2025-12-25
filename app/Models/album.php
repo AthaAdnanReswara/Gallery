@@ -12,7 +12,11 @@ class album extends Model
         'slug',
         'cover',
         'is_active',
-        'title',
+        'title'
+    ];
+
+    protected $casts = [
+        'is_active' => 'integer',
     ];
 
     public function photo()

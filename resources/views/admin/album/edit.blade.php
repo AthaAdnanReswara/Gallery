@@ -46,6 +46,28 @@
                         @enderror
                     </div>
 
+                    <!-- Title -->
+                    <div class="mb-4">
+                        <label class="form-label">Title</label>
+                        <textarea name="title" class="form-control" rows="3">{{ old('title', $album->title) }}</textarea>
+                        @error('title')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <!-- Status Album -->
+                    <div class="mb-4">
+                        <label class="form-label">Status Album</label>
+                        <select name="is_active" class="form-select" required>
+                            <option value="1" {{ $album->is_active == 1 ? 'selected' : '' }}>Aktif</option>
+                            <option value="0" {{ $album->is_active == 0 ? 'selected' : '' }}>Non Aktif</option>
+                        </select>
+                        @error('is_active')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+
                     <!-- Button -->
                     <div class="d-flex justify-content-end gap-2">
                         <a href="{{ route('admin.album.index') }}" class="btn btn-outline-secondary">

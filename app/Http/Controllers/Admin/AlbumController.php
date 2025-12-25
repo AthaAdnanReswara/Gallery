@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\album;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -15,7 +16,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $albums = album::latest()->paginate(10);
+        $albums = Album::orderBy('id', 'desc')->get();
         return view('admin.album.index', compact('albums'));
     }
 
@@ -35,7 +36,8 @@ class AlbumController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'cover' => 'nullable|image|max:2048'
+            'cover' => 'nullable|image|max:2048',
+            'title' => 'nullable|string|max:255',
         ]);
 
         // buat slug dasar
@@ -59,6 +61,7 @@ class AlbumController extends Controller
             'slug' => $slug,
             'deskripsi' => $request->deskripsi,
             'cover' => $coverPath,
+            'title' => $request->title,
             'is_active' => true
         ]);
 
@@ -91,20 +94,27 @@ class AlbumController extends Controller
             'name' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'cover' => 'nullable|image|max:2048',
+            'title' => 'nullable|string|max:255',
+            'is_active' => 'required|boolean',
         ]);
 
+        // update cover jika ada
         if ($request->hasFile('cover')) {
             if ($album->cover) {
                 Storage::disk('public')->delete($album->cover);
             }
             $album->cover = $request->file('cover')->store('album_covers', 'public');
         }
+
         $album->update([
             'name' => $request->name,
             'deskripsi' => $request->deskripsi,
-            'is_active' => true
+            'title' => $request->title,
+            'is_active' => $request->is_active, // 🔥 ini kuncinya
         ]);
-        return redirect()->route('admin.album.index')->with('success', 'Album berhasil diperbarui');
+
+        return redirect()->route('admin.album.index')
+            ->with('success', 'Album berhasil diperbarui');
     }
 
 
