@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('cover')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->string('title')->nullable();
             $table->timestamps();
         });
     }

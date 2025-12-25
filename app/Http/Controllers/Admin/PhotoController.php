@@ -57,10 +57,8 @@ class PhotoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    
+
 
     /**
      * Show the form for editing the specified resource.
@@ -104,5 +102,40 @@ class PhotoController extends Controller
         $photo->delete();
 
         return redirect()->route('admin.photo.index')->with('success', 'Foto berhasil dihapus');
+    }
+
+
+    //
+    public function pending()
+    {
+        $photos = Photo::where('status', 'pending')->latest()->get();
+        return view('admin.photo.pending', compact('photos'));
+    }
+
+    public function show(Photo $photo)
+    {
+        return view('admin.photo.show', compact('photo'));
+    }
+
+    public function approve(Photo $photo)
+    {
+        $photo->update([
+            'status' => 'approved'
+        ]);
+
+        return redirect()
+            ->route('admin.photo.pending')
+            ->with('success', 'Foto berhasil disetujui');
+    }
+
+    public function reject(Photo $photo)
+    {
+        $photo->update([
+            'status' => 'rejected'
+        ]);
+
+        return redirect()
+            ->route('admin.photo.pending')
+            ->with('success', 'Foto berhasil ditolak');
     }
 }

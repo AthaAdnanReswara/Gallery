@@ -1,5 +1,5 @@
 @extends('layout.public')
-
+@section('title', 'Home')
 @section('content')
 
 <!-- Hero Section -->

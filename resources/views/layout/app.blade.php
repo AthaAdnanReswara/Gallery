@@ -81,7 +81,7 @@
                 </svg>
               </span>
             </span>
-            <span class="app-brand-text demo menu-text fw-bold ms-2">Sneat</span>
+            <span class="app-brand-text demo menu-text fw-bold ms-2">Gallery</span>
           </a>
 
           <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -149,6 +149,80 @@
             <!-- /Search -->
 
             <ul class="navbar-nav flex-row align-items-center ms-md-auto">
+              {{-- 🔔 NOTIFICATION --}}
+              <li class="nav-item dropdown me-3">
+                <a
+                  class="nav-link dropdown-toggle hide-arrow p-0"
+                  href="javascript:void(0);"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false">
+
+                  <i class="icon-base bx bx-bell icon-md"></i>
+
+                  @if(auth()->user()->unreadNotifications->count())
+                  <span class="badge bg-danger rounded-pill badge-notifications">
+                    {{ auth()->user()->unreadNotifications->count() }}
+                  </span>
+                  @endif
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-end py-0">
+                  <li class="dropdown-menu-header border-bottom">
+                    <div class="dropdown-header d-flex align-items-center py-3">
+                      <h6 class="mb-0 me-auto">Notifikasi</h6>
+                      <span class="badge bg-label-primary">
+                        {{ auth()->user()->unreadNotifications->count() }} Baru
+                      </span>
+                    </div>
+                  </li>
+
+                  <li class="dropdown-notifications-list">
+                    <ul class="list-group list-group-flush">
+
+                      @forelse(auth()->user()->unreadNotifications as $notif)
+                      <li class="list-group-item list-group-item-action">
+                        <a href="{{ route('admin.photo.show', $notif->data['photo_id']) }}"
+                          class="d-flex text-decoration-none text-dark">
+
+                          <div class="flex-shrink-0 me-3">
+                            <img src="{{ isset($notif->data['image']) 
+                                ? asset('storage/'.$notif->data['image']) 
+                                : asset('images/default.png') }}"
+                              class="rounded-circle"
+                              width="40"
+                              height="40"
+                              style="object-fit: cover;">
+                          </div>
+
+                          <div class="flex-grow-1">
+                            <h6 class="mb-1">{{ $notif->data['message'] }}</h6>
+                            <small class="text-muted">
+                              Album: {{ $notif->data['album'] }}
+                            </small>
+                          </div>
+
+                        </a>
+                      </li>
+
+                      @empty
+                      <li class="list-group-item text-center text-muted">
+                        Tidak ada notifikasi
+                      </li>
+                      @endforelse
+
+                    </ul>
+                  </li>
+
+                  <li class="dropdown-menu-footer border-top">
+                    <a href="{{ route('admin.photo.pending') }}"
+                      class="dropdown-item text-center">
+                      Lihat semua foto pending
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              {{-- /NOTIFICATION --}}
+
               <!-- Place this tag where you want the button to render. -->
               <li class="nav-item lh-1 me-4">
                 <a

@@ -25,7 +25,7 @@
     <link href={{ asset('index/assets/vendor/swiper/swiper-bundle.min.css') }} rel="stylesheet">
 
     <!-- Main CSS File -->
-    <link href="index/assets/css/main.css" rel="stylesheet">
+    <link href="{{ asset('index/assets/css/main.css') }}" rel="stylesheet">
 
     <!-- =======================================================
   * Template Name: PhotoFolio
@@ -34,6 +34,31 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+    <style>
+        /* Floating Action Button */
+        .fab-add {
+            position: fixed;
+            bottom: 80px;
+            right: 10px;
+            width: 60px;
+            height: 60px;
+            background-color: #0d6efd;
+            /* bootstrap primary */
+            color: #fff;
+            border-radius: 50%;
+            font-size: 26px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            z-index: 9999;
+            transition: all 0.3s ease;
+        }
+
+        .fab-add:hover {
+            background-color: #084298;
+            transform: scale(1.08);
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body class="index-page">
@@ -47,8 +72,8 @@
             </a>
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="#" class="active">Home<br></a></li>
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="{{ route('public.index') }}" class="{{ request()->routeIs('public.index') ? 'active' : '' }}">Home<br></a></li>
+                    <li><a href="{{ route('public.about') }}" class="{{ request()->routeIs('public.about') ? 'active' : '' }}">About</a></li>
                     <li class="dropdown">
                         <a href="#">
                             <span>Gallery</span>
@@ -56,10 +81,9 @@
                         </a>
                         <ul>
                             <li>
-                                <a href="">
-                                    All
-                                </a>
+                                <a href="{{ route('public.index') }}">All</a>
                             </li>
+
                             @foreach($albums as $album)
                             <li>
                                 <a href="{{ route('album.show', $album->slug) }}">
@@ -70,8 +94,8 @@
                         </ul>
                     </li>
 
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#"></a></li>
+                    <li><a href="#"></a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
@@ -84,6 +108,14 @@
         </div>
     </header>
     <main class="main">
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show position-fixed"
+            style="bottom:20px; right:20px; z-index:9999">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        @endif
+
         @yield('content')
     </main>
     <footer id="footer" class="footer">
@@ -114,6 +146,87 @@
         <div class="line"></div>
     </div>
 
+    <!-- Floating Add Button -->
+    <button
+        class="fab-add d-flex align-items-center justify-content-center"
+        title="Tambah Foto"
+        data-bs-toggle="modal"
+        data-bs-target="#uploadPhotoModal">
+        <i class="bi bi-plus-lg"></i>
+    </button>
+
+    <!-- Modal Upload Foto Publik -->
+    <div class="modal fade" id="uploadPhotoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form
+                action="{{ route('photo.upload.public') }}"
+                method="POST"
+                enctype="multipart/form-data"
+                class="modal-content">
+
+                @csrf
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload Foto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    {{-- VALIDASI ERROR --}}
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+                    <div class="mb-3">
+                        <label class="form-label">Pilih Album</label>
+                        <select name="album_id" class="form-select" required>
+                            <option value="">-- Pilih Album --</option>
+                            @foreach($albums as $album)
+                            <option value="{{ $album->id }}">{{ $album->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Foto</label>
+                        <input type="file" name="photo" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Caption</label>
+                        <textarea name="caption" class="form-control"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" name="name" class="form-control" placeholder="Nama (opsional)">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="email" name="email" class="form-control" placeholder="Email (opsional)">
+                    </div>
+
+                    <small class="text-muted">
+                        Foto akan tampil setelah disetujui admin
+                    </small>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button class="btn btn-primary">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
     <!-- Vendor JS Files -->
     <script src={{ asset('index/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}></script>
     <script src={{ asset('index/assets/vendor/php-email-form/validate.js') }}></script>
@@ -123,6 +236,17 @@
 
     <!-- Main JS File -->
     <script src={{ asset('index/assets/js/main.js') }}></script>
+    @if ($errors->any())
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let modal = new bootstrap.Modal(
+                document.getElementById('uploadPhotoModal')
+            );
+            modal.show();
+        });
+    </script>
+    @endif
+
 </body>
 
 </html>

@@ -11,7 +11,8 @@ class album extends Model
         'deskripsi',
         'slug',
         'cover',
-        'is_active'
+        'is_active',
+        'title',
     ];
 
     public function photo()
