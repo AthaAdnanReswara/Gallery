@@ -7,8 +7,9 @@
         <div class="row justify-content-center">
             <div class="col-lg-6 text-center" data-aos="fade-up" data-aos-delay="100">
                 <h2><span>WOKA </span><span class="underlight">ACADEMY</span></h2>
-                <p>CV. WOKA PROJECT MANDIRI</p>
-                <p>{{ $album->title }}</p>
+                <p style="font-size: 20px;">CV. WOKA PROJECT MANDIRI</p>
+                <p class="m-0">{{ strtoupper($album->title) }}</p>
+                <p>{{ $album->deskripsi }}</p>
                 <a href="contact.html" class="btn-get-started">Available for Hire<br></a>
             </div>
         </div>

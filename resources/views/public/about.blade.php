@@ -8,7 +8,9 @@
         <div class="container">
             <div class="row d-flex justify-content-center text-center">
                 <div class="col-lg-8">
-                    <h1>About</h1>
+                    <h1><span>About WOKA </span><span class="underlight">ACADEMY</span></h1>
+                    <p>CV. WOKA PROJECT MANDIRI</p>
+                    <p>IT Network System Administration, IT Software Developer, Graphic Designer</p> 
                     <p class="mb-0">Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p>
                     <a href="contact.html" class="cta-btn">Available for Hire<br></a>
                 </div>
@@ -32,7 +34,7 @@
 
         <div class="row gy-4 justify-content-center">
             <div class="col-lg-4">
-                <img src="assets/img/profile-img.jpg" class="img-fluid" alt="">
+                <img src={{ asset('index/assets/img/profile-img.jpg') }} class="img-fluid" alt="">
             </div>
             <div class="col-lg-5 content">
                 <h2>UI/UX DesiProfessional Photographer from New Yorkgner &amp; Web Developer.</h2>
@@ -121,7 +123,7 @@
                             Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
                         </p>
                         <div class="profile mt-auto">
-                            <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                            <img src={{ asset('index/assets/img/testimonials/testimonials-1.jpg') }} class="testimonial-img" alt="">
                             <h3>Saul Goodman</h3>
                             <h4>Ceo &amp; Founder</h4>
                         </div>
@@ -137,7 +139,7 @@
                             Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
                         </p>
                         <div class="profile mt-auto">
-                            <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                            <img src={{ asset('index/assets/img/testimonials/testimonials-2.jpg') }} class="testimonial-img" alt="">
                             <h3>Sara Wilsson</h3>
                             <h4>Designer</h4>
                         </div>
@@ -153,7 +155,7 @@
                             Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
                         </p>
                         <div class="profile mt-auto">
-                            <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                            <img src={{ asset('index/assets/img/testimonials/testimonials-3.jpg') }} class="testimonial-img" alt="">
                             <h3>Jena Karlis</h3>
                             <h4>Store Owner</h4>
                         </div>
@@ -169,7 +171,7 @@
                             Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
                         </p>
                         <div class="profile mt-auto">
-                            <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                            <img src={{ asset('index/assets/img/testimonials/testimonials-4.jpg') }} class="testimonial-img" alt="">
                             <h3>Matt Brandon</h3>
                             <h4>Freelancer</h4>
                         </div>
@@ -185,7 +187,7 @@
                             Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
                         </p>
                         <div class="profile mt-auto">
-                            <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                            <img src={{ asset('index/assets/img/testimonials/testimonials-5.jpg') }} class="testimonial-img" alt="">
                             <h3>John Larson</h3>
                             <h4>Entrepreneur</h4>
                         </div>

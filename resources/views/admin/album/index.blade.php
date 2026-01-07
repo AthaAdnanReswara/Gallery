@@ -39,7 +39,7 @@
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-                @foreach ( $albums as $album )
+                @foreach ( $alb as $album )
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>
@@ -59,7 +59,7 @@
                     </td>
                     <td>{{ $album->title }}</td>
                     <td>
-                        @if($album->is_active)
+                        @if($album->is_active == 1)
                         <span class="badge bg-success">Aktif</span>
                         @else
                         <span class="badge bg-danger">Non Aktif</span>

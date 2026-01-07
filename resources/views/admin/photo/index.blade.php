@@ -29,6 +29,7 @@
                     <th>Caption</th>
                     <th>Uploader</th>
                     <th>Status</th>
+                    <th>Review</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -58,6 +59,12 @@
                         @else
                         <span class="badge bg-danger">Rejected</span>
                         @endif
+                    </td>
+                    <td>
+                        <a href="{{ route('admin.photo.show', $photo->id) }}"
+                            class="btn btn-sm btn-info">
+                            <i class="bx bx-show"></i> Review
+                        </a>
                     </td>
                     <td>
                         <div class="dropdown">

@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title','tambah tambah')
+@section('title','Tambah Album')
 @section('content')
 
 <div class="row g-6">

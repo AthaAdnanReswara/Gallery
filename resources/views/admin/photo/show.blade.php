@@ -1,5 +1,5 @@
 @extends('layout.app')
-
+@section('title','Detail Photo')
 @section('content')
 <div class="container">
 
@@ -36,7 +36,7 @@
             </form>
             @endif
 
-            <a href="{{ route('admin.photo.pending') }}" class="btn btn-secondary">
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">
                 Kembali
             </a>
 
